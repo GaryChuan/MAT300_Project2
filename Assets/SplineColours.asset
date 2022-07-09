@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b71b346464ffa4485400cc83a395db, type: 3}
+  m_Name: SplineColours
+  m_EditorClassIdentifier: 
+  _colours:
+  - {r: 0.0046279924, g: 0.84943324, b: 0.9811321, a: 1}
+  - {r: 0, g: 1, b: 0.49481297, a: 1}
+  - {r: 0.22708276, g: 0.64705884, b: 0.03137256, a: 1}
+  - {r: 0.76969326, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0.8662936, b: 0, a: 1}
+  - {r: 1, g: 0.4084027, b: 0, a: 1}
+  - {r: 1, g: 0.24720202, b: 0.08018869, a: 1}
+  - {r: 0.99607843, g: 0, b: 0.27498987, a: 1}
+  - {r: 1, g: 0, b: 0.52317095, a: 1}
+  - {r: 0.7725268, g: 0.29503384, b: 0.9622642, a: 1}
