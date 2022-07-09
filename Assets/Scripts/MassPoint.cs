@@ -13,6 +13,6 @@ public struct MassPoint
     public MassPoint(Vector2 point, float mass)
     {
         _mass = mass;
-        _point = point;
+        _point = point; 
     }
 }

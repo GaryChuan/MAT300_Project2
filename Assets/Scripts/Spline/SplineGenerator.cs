@@ -17,35 +17,35 @@ public class SplineGenerator
 
         for (int i = 0; i < _dataList.Count - 1; ++i)
         {
-            Data firstData = _dataList[i];
-            Data secondData = _dataList[i + 1];
+            Data data1 = _dataList[i];
+            Data data2 = _dataList[i + 1];
 
-            MassPoint p0 = new MassPoint(firstData._position, firstData._mass);
-            MassPoint p1 = new MassPoint(secondData._position, secondData._mass);
+            MassPoint p0 = new MassPoint(data1._position, data1._mass);
+            MassPoint p1 = new MassPoint(data2._position, data2._mass);
 
             // Generate first intermediate control point
             MassPoint c0 = 
                 new MassPoint(
-                    p0.Point + _firstData._velocity / 3f, 
-                    firstData._mass);
+                    p0.Point + data1._velocity / 3f, 
+                    data1._mass);
 
             // Generate second intermediate conrol point
             MassPoint c1 = 
                 new MassPoint(
-                    p0.Point + _firstData._acceleration / 6f + 2 * _firstData._velocity / 3f, 
-                    firstData._mass);
+                    p0.Point + data1._acceleration / 6f + 2 * data1._velocity / 3f, 
+                    data1._mass);
             
             // Generate new curve and add to list
             curveList.Add(new Curve(p0, c0, c1, p1));
 
             // Generate second data velocity and acceleration
-            Vector2 v = secondData._position - firstData._position;
+            Vector2 v = data2._position - data1._position;
 
-            secondData._velocity =
-                3 * v - _firstData._acceleration / 2f - 2 * _firstData._velocity;
+            data2._velocity =
+                3 * v - data1._acceleration / 2f - 2 * data1._velocity;
 
-            secondData._acceleration =
-                6 * v - 2 * _firstData._acceleration - 6 * firstData._velocity;
+            data2._acceleration =
+                6 * v - 2 * data1._acceleration - 6 * data1._velocity;
         }
 
         return curveList;
