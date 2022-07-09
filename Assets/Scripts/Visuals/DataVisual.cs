@@ -15,7 +15,7 @@ public class DataVisual : MonoBehaviour
 
     public void SetPointLabel(string label)
     {
-
+        _pointLabel.text = label;
     }
 
     public void SetVelocityArrowActive(bool active)
@@ -46,7 +46,10 @@ public class DataVisual : MonoBehaviour
 
     void UpdateArrow(DerivativeVisual arrow, Vector3 vec)
     {
-        arrow.AdjustArrow(vec);
+        bool nonZeroMagnitude = vec.sqrMagnitude > 0;
+
+        arrow.gameObject.SetActive(nonZeroMagnitude);
+        if(nonZeroMagnitude) arrow.AdjustArrow(vec);
     }
 
     public bool ToggleVelocityArrow()

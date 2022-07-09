@@ -9,6 +9,8 @@ public class SplineGenerator
     [SerializeField] List<InputData> _inputData;
     List<Data> _dataList = new List<Data>();
 
+    public List<Data> DataList => _dataList;
+
     public List<Curve> GenerateSpline()
     {
         RegenerateDataList();
@@ -20,32 +22,30 @@ public class SplineGenerator
             Data data1 = _dataList[i];
             Data data2 = _dataList[i + 1];
 
-            MassPoint p0 = new MassPoint(data1._position, data1._mass);
-            MassPoint p1 = new MassPoint(data2._position, data2._mass);
+            MassPoint p0 = new MassPoint(data1.Position, data1.Mass);
+            MassPoint p1 = new MassPoint(data2.Position, data2.Mass);
 
             // Generate first intermediate control point
             MassPoint c0 = 
                 new MassPoint(
-                    p0.Point + data1._velocity / 3f, 
-                    data1._mass);
+                    p0.Point + data1.Velocity / 3f, 
+                    data1.Mass);
 
             // Generate second intermediate conrol point
             MassPoint c1 = 
                 new MassPoint(
-                    p0.Point + data1._acceleration / 6f + 2 * data1._velocity / 3f, 
-                    data1._mass);
+                    p0.Point + data1.Acceleration / 6f + 2 * data1.Velocity / 3f, 
+                    data1.Mass);
             
             // Generate new curve and add to list
             curveList.Add(new Curve(p0, c0, c1, p1));
 
             // Generate second data velocity and acceleration
-            Vector2 v = data2._position - data1._position;
+            Vector2 v = data2.Position - data1.Position;
 
-            data2._velocity =
-                3 * v - data1._acceleration / 2f - 2 * data1._velocity;
+            data2.SetVelocity(3 * v - data1.Acceleration / 2f - 2 * data1.Velocity);
 
-            data2._acceleration =
-                6 * v - 2 * data1._acceleration - 6 * data1._velocity;
+            data2.SetAcceleration(6 * v - 2 * data1.Acceleration - 6 * data1.Velocity);
         }
 
         return curveList;
@@ -60,11 +60,7 @@ public class SplineGenerator
 
         foreach(InputData inputData in _inputData)
         {
-            Data newData = new Data();
-
-            newData._mass = inputData.mass;
-            newData._position = inputData.position;
-
+            Data newData = new Data(inputData.position, inputData.mass);
             _dataList.Add(newData);
         }
     }

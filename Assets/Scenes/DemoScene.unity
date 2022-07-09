@@ -178,8 +178,10 @@ MonoBehaviour:
       mass: 1
     - position: {x: 1, y: -2}
       mass: 1
+  _splineVisual:
+    _lineRendererPrefab: {fileID: 752996298424737886, guid: 01d57f1ba06ea5847b49c3618a4c41d8, type: 3}
+    _dataVisualPrefab: {fileID: 1975420142893455163, guid: 77750fb3aeedf0845ac5270521e82ceb, type: 3}
   _curves: []
-  _lineRendererPrefab: {fileID: 752996298424737886, guid: 01d57f1ba06ea5847b49c3618a4c41d8, type: 3}
 --- !u!1 &260371703
 GameObject:
   m_ObjectHideFlags: 0
