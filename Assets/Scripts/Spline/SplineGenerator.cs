@@ -60,7 +60,7 @@ public class SplineGenerator
 
     public void RemoveData(int index)
     {
-        if(index >= _dataList.Count)
+        if(index >= _dataList.Count)    
         {
             return;
         }

@@ -88,7 +88,7 @@ public class DataListItem : MonoBehaviour
     public void OnToggle()
     {
         toggled = !toggled;
-        // _dataPanel.SetActive(toggled);
+        _contentImage.gameObject.SetActive(toggled);
     }
 
     public void SetVelocityPanelInteractable(bool interactable)
