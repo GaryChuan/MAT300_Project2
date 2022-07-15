@@ -66,7 +66,8 @@ public class Spline : MonoBehaviour
 
     public void SwapPoints(int index1, int index2)
     {
-
+        _splineGenerator.SwapPoints(index1, index2);
+        Initialize();
     }
 
     public bool ToggleVelocityArrow(int index)

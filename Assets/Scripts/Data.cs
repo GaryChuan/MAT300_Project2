@@ -24,6 +24,14 @@ public class Data
         _mass = mass;
     }
 
+    public Data(Data rhs)
+    {
+        _position = rhs._position;
+        _velocity = rhs._velocity;
+        _acceleration = rhs._acceleration;
+        _mass = rhs._mass;
+    }
+
     public Vector2 Position => _position;
     public Vector2 Velocity => _velocity;
     public Vector2 Acceleration => _acceleration;

@@ -243,7 +243,7 @@ public class SplineEditor : MonoBehaviour
                         if (newMass == 0) return;
 
                         data.SetMass(Mathf.Clamp(newMass, -1f, 1f));
-                        dataListItem.massInputField.text = data.Mass.ToString();
+                        dataListItem.massInputField.text = data.Mass.ToString("F1");
                         _spline.Initialize();
                     }
                     catch (System.Exception)
@@ -260,7 +260,7 @@ public class SplineEditor : MonoBehaviour
 
                         if (Mathf.Abs(newMass) == 0)
                         {
-                            dataListItem.massInputField.text = data.Mass.ToString();
+                            dataListItem.massInputField.text = data.Mass.ToString("F1");
                         }
                     }
                     catch (System.Exception)
@@ -284,11 +284,10 @@ public class SplineEditor : MonoBehaviour
             float value = data.GetValue(derivative)[index];
 
             inputFields[index].onValueChanged.RemoveAllListeners();
-            inputFields[index].text = Convert.ToString(value);
+            inputFields[index].text = value.ToString("F1");
             inputFields[index].onValueChanged.AddListener(
                 (string s) =>
                 {
-
                     float min = derivative == 0 ? -10f : -5f;
                     float max = derivative == 0 ? 10f : 5f;
                     Vector2 vec2 = data.GetValue(derivative);
@@ -306,6 +305,8 @@ public class SplineEditor : MonoBehaviour
                         vec2[index] = newValue;
                         data.SetValue(derivative, vec2);
                         _spline.Initialize();
+                        // Update panels
+                        Initialize();
                     }
                     catch (System.Exception)
                     {

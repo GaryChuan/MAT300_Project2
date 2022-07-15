@@ -50,21 +50,27 @@ public class SplineGenerator
 
     public void AddData()
     {
-        if(_dataList.Count == 10)
+        if(_dataList.Count < 10)
         {
-            return;
+           _dataList.Add(new Data());
         }
-
-        _dataList.Add(new Data());
     }
 
     public void RemoveData(int index)
     {
-        if(index >= _dataList.Count)    
-        {
-            return;
-        }
-
         _dataList.RemoveAt(index);
+    }
+
+    public void SwapPoints(int index1, int index2)
+    {
+        Data temp = _dataList[index1];
+        Vector2 velocity = temp.Velocity;
+        Vector2 acceleration = temp.Acceleration;
+
+        _dataList[index1] = _dataList[index2];
+        _dataList[index2] = temp;
+
+        _dataList[index1].SetVelocity(velocity);
+        _dataList[index1].SetAcceleration(acceleration);
     }
 }
