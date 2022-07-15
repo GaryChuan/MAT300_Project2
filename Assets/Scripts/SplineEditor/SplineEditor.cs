@@ -2,15 +2,22 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class SplineEditor : MonoBehaviour
 {
     [SerializeField] Spline _spline;
     [SerializeField] DataListItem _dataListItemPrefab;
-    [SerializeField] GameObject _content;
     [SerializeField] SplineColours _splineColours;
+    
+    [Header("Panels")]
+    [SerializeField] GameObject _content;
     [SerializeField] GameObject _dataPanel;
+
+    [Header("Buttons")]
+    [SerializeField] Button _addDataButton;
+    [SerializeField] Button _swapDataButton;
 
     List<DataListItem> _dataListItems = new List<DataListItem>();
     List<int> _selectedListItems = new List<int>();
@@ -58,7 +65,7 @@ public class SplineEditor : MonoBehaviour
             // Clear and add on toggle button callback
             dataListItem._toggleButton.onValueChanged.RemoveAllListeners();
             dataListItem._toggleButton.onValueChanged.AddListener(
-                (bool selected) => { OnDataToggle(selected, index); }
+                (bool selected) => { OnDateListItemSelectionToggled(selected, index); }
             );
 
             // Clear and add on delete button callback
@@ -132,7 +139,7 @@ public class SplineEditor : MonoBehaviour
         }
     }
 
-    void OnDataToggle(bool selected, int index)
+    void OnDateListItemSelectionToggled(bool selected, int index)
     {
         if (selected)
         {
@@ -160,63 +167,65 @@ public class SplineEditor : MonoBehaviour
                 _dataListItems[i]._toggleButton.interactable = true;
             }
         }
+
+        _swapDataButton.interactable = _selectedListItems.Count == 2;
     }
 
-//    void LoadFromFile(string filePath)
-//    {
-//        StreamReader inputStream = File.OpenText(filePath);
+    //    void LoadFromFile(string filePath)
+    //    {
+    //        StreamReader inputStream = File.OpenText(filePath);
 
-//        var vertexCountInfo = inputStream.ReadLine();
-//        int vertexCount = Convert.ToInt32(vertexCountInfo);
+    //        var vertexCountInfo = inputStream.ReadLine();
+    //        int vertexCount = Convert.ToInt32(vertexCountInfo);
 
-//        for (int i = 0; i < vertexCount; ++i)
-//        {
-//            var info = inputStream.ReadLine()?.Trim(' ').Split(' ');
+    //        for (int i = 0; i < vertexCount; ++i)
+    //        {
+    //            var info = inputStream.ReadLine()?.Trim(' ').Split(' ');
 
-//#nullable enable
-//            InputData? inputData = null;
-//#nullable disable
+    //#nullable enable
+    //            InputData? inputData = null;
+    //#nullable disable
 
-//            // Position
-//            if (info.Length >= 2)
-//            {
-//                inputData = new InputData();
+    //            // Position
+    //            if (info.Length >= 2)
+    //            {
+    //                inputData = new InputData();
 
-//                inputData._dataList.Add(new Vector2(
-//                    (float)Convert.ToDouble(info[0]),
-//                    (float)Convert.ToDouble(info[1])
-//                ));
-//            }
+    //                inputData._dataList.Add(new Vector2(
+    //                    (float)Convert.ToDouble(info[0]),
+    //                    (float)Convert.ToDouble(info[1])
+    //                ));
+    //            }
 
-//            // Velocity
-//            if (info.Length >= 4)
-//            {
-//                inputData._dataList.Add(new Vector2(
-//                    (float)Convert.ToDouble(info[2]),
-//                    (float)Convert.ToDouble(info[3])
-//                ));
-//            }
+    //            // Velocity
+    //            if (info.Length >= 4)
+    //            {
+    //                inputData._dataList.Add(new Vector2(
+    //                    (float)Convert.ToDouble(info[2]),
+    //                    (float)Convert.ToDouble(info[3])
+    //                ));
+    //            }
 
-//            // Acceleration
-//            if (info.Length >= 6)
-//            {
-//                inputData._dataList.Add(new Vector2(
-//                    (float)Convert.ToDouble(info[4]),
-//                    (float)Convert.ToDouble(info[5])
-//                ));
-//            }
+    //            // Acceleration
+    //            if (info.Length >= 6)
+    //            {
+    //                inputData._dataList.Add(new Vector2(
+    //                    (float)Convert.ToDouble(info[4]),
+    //                    (float)Convert.ToDouble(info[5])
+    //                ));
+    //            }
 
-//            if (inputData != null && Convert.ToBoolean(info.Length % 2))
-//            {
-//                inputData.mass = (float)Convert.ToDouble(info[info.Length - 1]);
-//            }
+    //            if (inputData != null && Convert.ToBoolean(info.Length % 2))
+    //            {
+    //                inputData.mass = (float)Convert.ToDouble(info[info.Length - 1]);
+    //            }
 
-//            if (inputData != null)
-//            {
-//                _spline.AddInputData(inputData);
-//            }
-//        }
-//    }
+    //            if (inputData != null)
+    //            {
+    //                _spline.AddInputData(inputData);
+    //            }
+    //        }
+    //    }
 
     void Initialize()
     {
@@ -327,12 +336,21 @@ public class SplineEditor : MonoBehaviour
     public void AddData()
     {
         _spline.AddData();
+        _addDataButton.interactable = _spline.DataList.Count != 10;
         Initialize();
     }
 
     public void RemoveData(int index)
     {
         _spline.RemoveData(index);
+        _addDataButton.interactable = _spline.DataList.Count != 10;
+
+        if(_selectedListItems.Contains(index))
+        {
+            _dataListItems[index]._toggleButton.isOn = false;
+            _selectedListItems.Remove(index);
+        }
+
         Initialize();
     }
 
