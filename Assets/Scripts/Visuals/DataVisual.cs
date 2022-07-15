@@ -71,4 +71,9 @@ public class DataVisual : MonoBehaviour
     {
         _accelerationArrow.ShowArrow();
     }
+
+    public bool CheckCollision(Collider2D collider)
+    {
+        return collider.transform == _pointRenderer.transform;
+    }
 }

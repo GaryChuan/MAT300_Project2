@@ -9,47 +9,35 @@ using TMPro;
 public class DataListItem : MonoBehaviour
 {
     [Header("Header")]
-    public TMP_Text headerText;
-    public Image headerImage;
+    public TMP_Text _headerText;
+    public Image _headerImage;
 
     [Header("Content")]
-    public Image contentImage;
+    public Image _contentImage;
 
     [Header("Input Fields")]
-    [SerializeField] TMP_InputField[] positionText = new TMP_InputField[2];
-    [SerializeField] TMP_InputField[] velocityText = new TMP_InputField[2];
-    [SerializeField] TMP_InputField[] accelerationText = new TMP_InputField[2];
+    [SerializeField] TMP_InputField[] _positionText = new TMP_InputField[2];
+    [SerializeField] TMP_InputField[] _velocityText = new TMP_InputField[2];
+    [SerializeField] TMP_InputField[] _accelerationText = new TMP_InputField[2];
 
     public TMP_InputField massInputField;
 
     [Header("Panels")]
-    [SerializeField] GameObject AddVelocityPanel;
-    [SerializeField] GameObject VelocityPanel;
-
-    [SerializeField] GameObject AddAccelerationPanel;
-    [SerializeField] GameObject AccelerationPanel;
-
-    [Header("Buttons")]
-    [SerializeField] GameObject RemoveVelocityButton;
-    [SerializeField] GameObject RemoveAccelerationButton;
+    [SerializeField] CanvasGroup _velocityPanel;
+    [SerializeField] CanvasGroup _accelerationPanel;
 
     [Header("Texts")]
-    [SerializeField] TMP_Text HideShowVelocityText;
-    [SerializeField] TMP_Text HideShowAccelerationText;
+    [SerializeField] TMP_Text _hideShowVelocityText;
+    [SerializeField] TMP_Text _hideShowAccelerationText;
 
-    public Button dropDownButton;
-    public Toggle toggleButton;
-    public Button deleteButton;
+    public Button _dropDownButton;
+    public Toggle _toggleButton;
+    public Button _deleteButton;
 
-    [HideInInspector] public List<TMP_InputField[]> inputFields;
+    [HideInInspector] public List<TMP_InputField[]> _inputFields;
 
-    public UnityAction _onAddVelocity;
-    public UnityAction _onRemoveVelocity;
-    public UnityAction _onAddAcceleration;
-    public UnityAction _onRemoveAcceleration;
-
-    public Func<bool> _onHideShowVelocity;
-    public Func<bool> _onHideShowAcceleration;
+    public Func<bool> _onToggleVelocity;
+    public Func<bool> _onToggleAcceleration;
 
     SplineEditor _splineEditor;
 
@@ -57,11 +45,11 @@ public class DataListItem : MonoBehaviour
 
     void Awake()
     {
-        inputFields = new List<TMP_InputField[]>();
+        _inputFields = new List<TMP_InputField[]>();
 
-        inputFields.Add(positionText);
-        inputFields.Add(velocityText);
-        inputFields.Add(accelerationText);
+        _inputFields.Add(_positionText);
+        _inputFields.Add(_velocityText);
+        _inputFields.Add(_accelerationText);
     }
 
     public void Initialize(SplineEditor editor)
@@ -69,98 +57,47 @@ public class DataListItem : MonoBehaviour
         _splineEditor = editor;
     }
 
-    public void InitializePanel(int derivative)
-    {
-        if (derivative == 1)
-        {
-            VelocityPanel.SetActive(true);
-            AddVelocityPanel.SetActive(false);
-        }
-        else if (derivative == 2 && VelocityPanel.gameObject.activeInHierarchy)
-        {
-            AccelerationPanel.SetActive(true);
-            AddAccelerationPanel.SetActive(false);
-        }
-    }
-
     public void FlipDropdownButton()
     {
-        dropDownButton.transform.rotation *= Quaternion.Euler(0, 0, 180);
-    }
-
-    public void ActivatePanel(int derivative)
-    {
-        if (derivative == 1)
-        {
-            VelocityPanel.SetActive(true);
-            AddVelocityPanel.SetActive(false);
-            _onAddVelocity?.Invoke();
-        }
-        else if (derivative == 2 && VelocityPanel.gameObject.activeInHierarchy)
-        {
-            AccelerationPanel.SetActive(true);
-            AddAccelerationPanel.SetActive(false);
-            _onAddAcceleration?.Invoke();
-        }
-    }
-
-    public void DeactivatePanel(int derivative)
-    {
-        if (derivative == 1)
-        {
-            if (AccelerationPanel.gameObject.activeInHierarchy)
-            {
-                AccelerationPanel.SetActive(false);
-                AddAccelerationPanel.SetActive(true);
-                _onRemoveAcceleration?.Invoke();
-            }
-
-            VelocityPanel.SetActive(false);
-            AddVelocityPanel.SetActive(true);
-            _onRemoveVelocity?.Invoke();
-        }
-        else if (derivative == 2 && VelocityPanel.gameObject.activeInHierarchy)
-        {
-            AccelerationPanel.SetActive(false);
-            AddAccelerationPanel.SetActive(true);
-            _onRemoveAcceleration?.Invoke();
-        }
-    }
-
-    public void DeactivateAllPanels()
-    {
-        VelocityPanel.SetActive(false);
-        AddVelocityPanel.SetActive(true);
-        AccelerationPanel.SetActive(false);
-        AddAccelerationPanel.SetActive(true);
+        _dropDownButton.transform.rotation *= Quaternion.Euler(0, 0, 180);
     }
 
     public void ShowVelocity()
     {
-        HideShowVelocityText.text = "Hide";
+        _hideShowVelocityText.text = "Hide";
     }
 
     public void ShowAcceleration()
     {
-        HideShowAccelerationText.text = "Hide";
+        _hideShowAccelerationText.text = "Hide";
     }
 
     public void HideShowVelocityArrow()
     {
-        bool show = (bool)_onHideShowVelocity?.Invoke();
+        bool show = (bool)_onToggleVelocity?.Invoke();
 
-        HideShowVelocityText.text = show ? "Hide" : "Show";
+        _hideShowVelocityText.text = show ? "Hide" : "Show";
     }
 
     public void HideShowAccelerationArrow()
     {
-        bool show = (bool)_onHideShowAcceleration?.Invoke();
+        bool show = (bool)_onToggleAcceleration?.Invoke();
 
-        HideShowAccelerationText.text = show ? "Hide" : "Show";
+        _hideShowAccelerationText.text = show ? "Hide" : "Show";
     }
     public void OnToggle()
     {
         toggled = !toggled;
         // _dataPanel.SetActive(toggled);
+    }
+
+    public void SetVelocityPanelInteractable(bool interactable)
+    {
+        _velocityPanel.interactable = interactable;
+    }
+
+    public void SetAccelerationPanelInteractable(bool interactable)
+    {
+        _accelerationPanel.interactable = interactable;
     }
 }

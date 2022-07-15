@@ -79,4 +79,32 @@ public class SplineVisual
             _dataVisuals[i].gameObject.SetActive(false);
         }
     }
+
+    public bool ToggleVelocityArrow(int index)
+    {
+        return _dataVisuals[index].ToggleVelocityArrow();
+    }
+
+    public bool ToggleAccelerationArrow(int index)
+    {
+        return _dataVisuals[index].ToggleAccelerationArrow();
+    }
+
+    public int OnCollision(Collider2D collider)
+    {
+        int result = -1;
+
+        for(int i = 0; i < _dataVisuals.Count; ++i)
+        {
+            DataVisual dataVisual = _dataVisuals[i];
+            
+            if(dataVisual.CheckCollision(collider))
+            {
+                result = i;
+                break;
+            }
+        }
+
+        return result;
+    }
 }

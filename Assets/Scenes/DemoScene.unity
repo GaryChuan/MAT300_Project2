@@ -173,11 +173,19 @@ MonoBehaviour:
       _velocity: {x: -1, y: 1}
       _acceleration: {x: 0, y: 0}
       _mass: 1
-    _inputData:
-    - position: {x: 1, y: 2}
-      mass: 1
-    - position: {x: 1, y: -2}
-      mass: 1
+    _dataList:
+    - _position: {x: 0, y: 0}
+      _velocity: {x: -1, y: 1}
+      _acceleration: {x: 0, y: 0}
+      _mass: 1
+    - _position: {x: 1, y: 2}
+      _velocity: {x: 0, y: 0}
+      _acceleration: {x: 0, y: 0}
+      _mass: 1
+    - _position: {x: 1, y: -2}
+      _velocity: {x: 0, y: 0}
+      _acceleration: {x: 0, y: 0}
+      _mass: 1
   _splineVisual:
     _lineRendererPrefab: {fileID: 752996298424737886, guid: 01d57f1ba06ea5847b49c3618a4c41d8, type: 3}
     _dataVisualPrefab: {fileID: 1975420142893455163, guid: 77750fb3aeedf0845ac5270521e82ceb, type: 3}
@@ -310,7 +318,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &752075569
 GameObject:
@@ -377,7 +385,56 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1713838005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1713838007}
+  - component: {fileID: 1713838006}
+  m_Layer: 0
+  m_Name: SplineEditor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1713838006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713838005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a214240f1ff1f49a140730126e0f46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spline: {fileID: 13169728}
+  _dataListItemPrefab: {fileID: 865732687090686970, guid: 9f959247b552cc64cb5b536cb80c855d, type: 3}
+  _content: {fileID: 2088334788226105753}
+  _splineColours: {fileID: 11400000, guid: 2a5bb8e58493cb84cbccf5cc34442de4, type: 2}
+  _dataPanel: {fileID: 2088334787141421822}
+--- !u!4 &1713838007
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713838005}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2088334786508892261
 MonoBehaviour:
@@ -481,8 +538,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CurveEditor, Assembly-CSharp
+      - m_Target: {fileID: 1713838006}
+        m_TargetAssemblyTypeName: SplineEditor, Assembly-CSharp
         m_MethodName: Exit
         m_Mode: 1
         m_Arguments:
@@ -1146,8 +1203,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 164, y: -272.51}
-  m_SizeDelta: {x: 325, y: 1047}
+  m_AnchoredPosition: {x: 164, y: -16.509987}
+  m_SizeDelta: {x: 325, y: 585.98}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2088334787141421822
 GameObject:
@@ -1162,7 +1219,7 @@ GameObject:
   - component: {fileID: 2088334787141421819}
   - component: {fileID: 2088334787141421820}
   m_Layer: 5
-  m_Name: Scroll View
+  m_Name: DataPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1270,9 +1327,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CurveEditor, Assembly-CSharp
-        m_MethodName: AddInputData
+      - m_Target: {fileID: 1713838006}
+        m_TargetAssemblyTypeName: SplineEditor, Assembly-CSharp
+        m_MethodName: AddData
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1425,9 +1482,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DataPanelToggle, Assembly-CSharp
-        m_MethodName: OnToggle
+      - m_Target: {fileID: 1713838006}
+        m_TargetAssemblyTypeName: SplineEditor, Assembly-CSharp
+        m_MethodName: MinimizeEditorPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1982,8 +2039,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CurveEditor, Assembly-CSharp
+      - m_Target: {fileID: 1713838006}
+        m_TargetAssemblyTypeName: SplineEditor, Assembly-CSharp
         m_MethodName: SwapPoints
         m_Mode: 1
         m_Arguments:

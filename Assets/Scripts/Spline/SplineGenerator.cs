@@ -6,15 +6,12 @@ using UnityEngine;
 public class SplineGenerator
 {
     [SerializeField] Data _firstData;
-    [SerializeField] List<InputData> _inputData;
-    List<Data> _dataList = new List<Data>();
+    [SerializeField] List<Data> _dataList = new List<Data>();
 
     public List<Data> DataList => _dataList;
 
     public List<Curve> GenerateSpline()
     {
-        RegenerateDataList();
-
         List<Curve> curveList = new List<Curve>();
 
         for (int i = 0; i < _dataList.Count - 1; ++i)
@@ -47,22 +44,27 @@ public class SplineGenerator
 
             data2.SetAcceleration(6 * v - 2 * data1.Acceleration - 6 * data1.Velocity);
         }
-
+        
         return curveList;
     }
 
-    void RegenerateDataList()
+    public void AddData()
     {
-        _dataList.Clear();
-
-        // Add first data
-        _dataList.Add(_firstData);
-
-        foreach(InputData inputData in _inputData)
+        if(_dataList.Count == 10)
         {
-            Data newData = new Data(inputData.position, inputData.mass);
-            _dataList.Add(newData);
+            return;
         }
+
+        _dataList.Add(new Data());
     }
 
+    public void RemoveData(int index)
+    {
+        if(index >= _dataList.Count)
+        {
+            return;
+        }
+
+        _dataList.RemoveAt(index);
+    }
 }
