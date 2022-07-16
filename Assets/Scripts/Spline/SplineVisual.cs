@@ -99,7 +99,14 @@ public class SplineVisual
                 // To add first two points
                 if (counter == 0 || counter == 1)
                 {
-                    points.Add(point);
+                    points.Add(point); 
+                    
+                    if(hasAsymptote)
+                    {
+                        Vector3 p = points[points.Count - 1];
+                        Vector3 v = (points[points.Count - 2] - p).normalized * 1000f;
+                        points.Insert(0, v + p);
+                    }
                 }
                 else
                 {
