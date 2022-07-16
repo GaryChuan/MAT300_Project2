@@ -47,10 +47,10 @@ public class SplineEditor : MonoBehaviour
 
             // Setting header text
             dataListItem._headerText.text = "P" + Convert.ToString(index);
-            dataListItem._headerImage.color = _splineColours._colours[index];
+            dataListItem._headerImage.color = _splineColours[index];
 
             // Set colour of data list item background
-            Color contentColor = _splineColours._colours[index];
+            Color contentColor = _splineColours[index];
             
             contentColor.a = 0.5f;
             dataListItem._contentImage.color = contentColor;

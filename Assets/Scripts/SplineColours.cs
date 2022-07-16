@@ -7,5 +7,10 @@ using UnityEngine;
     order = 1)]
 public class SplineColours : ScriptableObject
 {
-    public List<Color> _colours;
+    [SerializeField] List<Color> _colours;
+
+    public Color this[int index]
+    {
+        get { return _colours[index]; }
+    }
 }

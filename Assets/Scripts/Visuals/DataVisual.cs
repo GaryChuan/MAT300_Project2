@@ -18,6 +18,11 @@ public class DataVisual : MonoBehaviour
         _pointLabel.text = label;
     }
 
+    public void SetPointColour(Color colour)
+    {
+        _pointRenderer.color = colour;
+    }
+
     public void SetVelocityArrowActive(bool active)
     {
         _velocityArrow.gameObject.SetActive(active);

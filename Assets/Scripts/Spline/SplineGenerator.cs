@@ -5,7 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class SplineGenerator
 {
-    [SerializeField] Data _firstData;
     [SerializeField] List<Data> _dataList = new List<Data>();
 
     public List<Data> DataList => _dataList;

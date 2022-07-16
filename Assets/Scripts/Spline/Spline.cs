@@ -51,7 +51,7 @@ public class Spline : MonoBehaviour
 
     public void InitializeColours(SplineColours splineColours)
     {
-
+        _splineVisual.InitializeColours(splineColours);
     }
 
     public int OnCollision(Collider2D collider)

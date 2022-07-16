@@ -22,14 +22,36 @@ public class SplineVisual
                 Object.Instantiate(_lineRendererPrefab, spline.transform);
             
             lineRenderer.gameObject.SetActive(false);
+            lineRenderer.startWidth = 0.15f;
+            lineRenderer.endWidth = 0.15f;
             _lineRenderers.Add(lineRenderer);
 
             DataVisual dataVisual =
                 Object.Instantiate(_dataVisualPrefab, spline.transform);
 
+            if(i == 0)
+            {
+                dataVisual.ShowAccelerationArrow();
+                dataVisual.ShowVelocityArrow();
+            }
+
             dataVisual.SetPointLabel("P" + i.ToString());
             dataVisual.gameObject.SetActive(false);
             _dataVisuals.Add(dataVisual);
+        }
+    }
+
+    public void InitializeColours(SplineColours splineColours)
+    {
+        for(int i = 0; i < 10; ++i)
+        {
+            _dataVisuals[i].SetPointColour(splineColours[i]);
+
+            if(i < 9)
+            {
+                _lineRenderers[i].startColor = splineColours[i];
+                _lineRenderers[i].endColor = splineColours[i + 1];
+            }
         }
     }
 

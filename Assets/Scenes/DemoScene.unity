@@ -172,19 +172,35 @@ MonoBehaviour:
       _position: {x: 0, y: 0}
       _velocity: {x: -1, y: 1}
       _acceleration: {x: 0, y: 0}
+      _infoList:
+      - {x: 0, y: 0}
+      - {x: 0, y: 0}
+      - {x: 0, y: 0}
       _mass: 1
     _dataList:
     - _position: {x: 0, y: 0}
       _velocity: {x: -1, y: 1}
       _acceleration: {x: 0, y: 0}
+      _infoList:
+      - {x: 0, y: 0}
+      - {x: 0, y: 0}
+      - {x: 0, y: 0}
       _mass: 1
     - _position: {x: 1, y: 2}
       _velocity: {x: 0, y: 0}
       _acceleration: {x: 0, y: 0}
+      _infoList:
+      - {x: 0, y: 0}
+      - {x: 0, y: 0}
+      - {x: 0, y: 0}
       _mass: 1
     - _position: {x: 1, y: -2}
       _velocity: {x: 0, y: 0}
       _acceleration: {x: 0, y: 0}
+      _infoList:
+      - {x: 0, y: 0}
+      - {x: 0, y: 0}
+      - {x: 0, y: 0}
       _mass: 1
   _splineVisual:
     _lineRendererPrefab: {fileID: 752996298424737886, guid: 01d57f1ba06ea5847b49c3618a4c41d8, type: 3}
