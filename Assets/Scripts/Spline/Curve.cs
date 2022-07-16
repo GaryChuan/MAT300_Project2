@@ -19,9 +19,9 @@ public class Curve
     {
         float oneMinusT = 1 - t;
 
-        Vector2 p01 = oneMinusT * _massPoints[0].Point + t * _massPoints[1].Point;
-        Vector2 p12 = oneMinusT * _massPoints[1].Point + t * _massPoints[2].Point;
-        Vector2 p23 = oneMinusT * _massPoints[2].Point + t * _massPoints[3].Point;
+        Vector2 p01 = oneMinusT * _massPoints[0].point + t * _massPoints[1].point;
+        Vector2 p12 = oneMinusT * _massPoints[1].point + t * _massPoints[2].point;
+        Vector2 p23 = oneMinusT * _massPoints[2].point + t * _massPoints[3].point;
 
         Vector2 p012 = oneMinusT * p01 + t * p12;
         Vector2 p123 = oneMinusT * p12 + t * p23;

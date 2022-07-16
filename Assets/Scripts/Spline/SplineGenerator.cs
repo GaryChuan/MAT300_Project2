@@ -5,43 +5,62 @@ using UnityEngine;
 [System.Serializable]
 public class SplineGenerator
 {
-    [SerializeField] List<Data> _dataList = new List<Data>();
+    [SerializeField] List<InputData> _inputDataList = new List<InputData>();
+    [SerializeField] List<MassPointData> _dataList = new List<MassPointData>();
 
-    public List<Data> DataList => _dataList;
+    public List<MassPointData> DataList => _dataList;
+    public List<InputData> InputDataList => _inputDataList;
 
     public List<Curve> GenerateSpline()
     {
+        _dataList.Clear();
+
+        // Build mass point data
+        for (int i = 0; i < _inputDataList.Count; ++i)
+        {
+            InputData data = _inputDataList[i];
+
+            MassPointData mpData = new MassPointData(
+                new MassPoint(data.Position, data.Mass),
+                new MassPoint(data.Velocity, 0),
+                new MassPoint(data.Acceleration, 0));
+
+            _dataList.Add(mpData);
+        }
+
+        // Generate velocity and acceleration data
+        for(int i = 0; i < _dataList.Count - 1; ++i)
+        {
+            MassPointData data1 = _dataList[i];
+            MassPointData data2 = _dataList[i + 1];
+
+            MassPoint p0p1 = data2.position - data1.position;
+            MassPoint v0 = data1.velocity * (Mathf.Abs(data1.velocity.mass) > 0 ? 1 : data1.position.mass);
+            MassPoint a0 = data1.acceleration * (Mathf.Abs(data1.acceleration.mass) > 0 ? 1 : data1.position.mass);
+
+            data2.velocity = 3f * p0p1 - 2f * v0 - 0.5f * a0;
+            data2.acceleration = 6f * p0p1 - 6f * v0 - 2 * a0;
+
+            _inputDataList[i + 1].SetVelocity(data2.velocity.point);
+            _inputDataList[i + 1].SetAcceleration(data2.acceleration.point);
+        }
+
         List<Curve> curveList = new List<Curve>();
 
-        for (int i = 0; i < _dataList.Count - 1; ++i)
+        for(int i = 0; i < _dataList.Count - 1; ++i)
         {
-            Data data1 = _dataList[i];
-            Data data2 = _dataList[i + 1];
+            MassPointData data1 = _dataList[i];
+            MassPointData data2 = _dataList[i + 1];
 
-            MassPoint p0 = new MassPoint(data1.Position, data1.Mass);
-            MassPoint p1 = new MassPoint(data2.Position, data2.Mass);
+            MassPoint p0 = data1.position;
+            MassPoint p1 = data2.position;
+            MassPoint v0 = data1.velocity * (Mathf.Abs(data1.velocity.mass) > 0 ? 1 : data1.position.mass);
+            MassPoint a0 = data1.acceleration * (Mathf.Abs(data1.acceleration.mass) > 0 ? 1 : data1.position.mass);
 
-            // Generate first intermediate control point
-            MassPoint c0 = 
-                new MassPoint(
-                    p0.Point + data1.Velocity / 3f, 
-                    data1.Mass);
+            MassPoint c0 =  p0 + v0 * 1 / 3f;
+            MassPoint c1 = p0 + 2f * v0 * 1 / 3f + a0 * 1 / 6f;
 
-            // Generate second intermediate conrol point
-            MassPoint c1 = 
-                new MassPoint(
-                    p0.Point + data1.Acceleration / 6f + 2 * data1.Velocity / 3f, 
-                    data1.Mass);
-            
-            // Generate new curve and add to list
             curveList.Add(new Curve(p0, c0, c1, p1));
-
-            // Generate second data velocity and acceleration
-            Vector2 v = data2.Position - data1.Position;
-
-            data2.SetVelocity(3 * v - data1.Acceleration / 2f - 2 * data1.Velocity);
-
-            data2.SetAcceleration(6 * v - 2 * data1.Acceleration - 6 * data1.Velocity);
         }
         
         return curveList;
@@ -49,27 +68,27 @@ public class SplineGenerator
 
     public void AddData()
     {
-        if(_dataList.Count < 10)
+        if(_inputDataList.Count < 10)
         {
-           _dataList.Add(new Data());
+           _inputDataList.Add(new InputData());
         }
     }
 
     public void RemoveData(int index)
     {
-        _dataList.RemoveAt(index);
+        _inputDataList.RemoveAt(index);
     }
 
     public void SwapPoints(int index1, int index2)
     {
-        Data temp = _dataList[index1];
+        InputData temp = _inputDataList[index1];
         Vector2 velocity = temp.Velocity;
         Vector2 acceleration = temp.Acceleration;
 
-        _dataList[index1] = _dataList[index2];
-        _dataList[index2] = temp;
+        _inputDataList[index1] = _inputDataList[index2];
+        _inputDataList[index2] = temp;
 
-        _dataList[index1].SetVelocity(velocity);
-        _dataList[index1].SetAcceleration(acceleration);
+        _inputDataList[index1].SetVelocity(velocity);
+        _inputDataList[index1].SetAcceleration(acceleration);
     }
 }

@@ -86,14 +86,14 @@ public class SplineVisual
     {
         for(int i = 0; i < spline.DataList.Count; ++i)
         {
-            Data data = spline.DataList[i];
+            MassPointData data = spline.DataList[i];
             DataVisual dataVisual = _dataVisuals[i];
 
             dataVisual.gameObject.SetActive(true);
-            dataVisual.gameObject.transform.position = data.Position;
+            dataVisual.gameObject.transform.position = data.position.point;
 
-            dataVisual.UpdateVelocityArrow(data.Velocity);
-            dataVisual.UpdateAccelerationArrow(data.Acceleration);
+            dataVisual.UpdateVelocityArrow(data.velocity.point);
+            dataVisual.UpdateAccelerationArrow(data.acceleration.point);
         }
 
         for(int i = spline.DataList.Count; i < 10; ++i)

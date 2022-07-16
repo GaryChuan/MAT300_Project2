@@ -9,7 +9,8 @@ public class Spline : MonoBehaviour
     [SerializeField] List<Curve> _curves;
 
     public List<Curve> Curves => _curves;
-    public List<Data> DataList => _splineGenerator.DataList;
+    public List<InputData> InputDataList => _splineGenerator.InputDataList;
+    public List<MassPointData> DataList => _splineGenerator.DataList;
 
     public int NumOfPoints => DataList.Count;
 
@@ -59,9 +60,14 @@ public class Spline : MonoBehaviour
         return _splineVisual.OnCollision(collider);
     }
 
-    public Data GetData(int index)
+    public MassPointData GetData(int index)
     {
         return DataList[index];
+    }
+
+    public InputData GetInputData(int index)
+    {
+        return InputDataList[index];
     }
 
     public void SwapPoints(int index1, int index2)

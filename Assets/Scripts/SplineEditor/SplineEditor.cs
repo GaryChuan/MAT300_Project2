@@ -232,7 +232,7 @@ public class SplineEditor : MonoBehaviour
         for (int i = 0; i < _spline.NumOfPoints; ++i)
         {
             DataListItem dataListItem = _dataListItems[i];
-            Data data = _spline.GetData(i);
+            InputData data = _spline.GetInputData(i);
 
             dataListItem.transform.gameObject.SetActive(true);
 
@@ -284,7 +284,7 @@ public class SplineEditor : MonoBehaviour
         }
     }
 
-    void UpdateDataListItem(TMP_InputField[] inputFields, Data data, int derivative)
+    void UpdateDataListItem(TMP_InputField[] inputFields, InputData data, int derivative)
     {
         for (int i = 0; i < inputFields.Length; ++i)
         {
@@ -336,14 +336,14 @@ public class SplineEditor : MonoBehaviour
     public void AddData()
     {
         _spline.AddData();
-        _addDataButton.interactable = _spline.DataList.Count != 10;
+        _addDataButton.interactable = _spline.InputDataList.Count != 10;
         Initialize();
     }
 
     public void RemoveData(int index)
     {
         _spline.RemoveData(index);
-        _addDataButton.interactable = _spline.DataList.Count != 10;
+        _addDataButton.interactable = _spline.InputDataList.Count != 10;
 
         if(_selectedListItems.Contains(index))
         {

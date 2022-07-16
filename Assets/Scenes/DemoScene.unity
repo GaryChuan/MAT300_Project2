@@ -168,40 +168,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _splineGenerator:
-    _firstData:
-      _position: {x: 0, y: 0}
-      _velocity: {x: -1, y: 1}
-      _acceleration: {x: 0, y: 0}
-      _infoList:
+    _inputDataList:
+    - _infoList:
       - {x: 0, y: 0}
+      - {x: -1, y: 1}
       - {x: 0, y: 0}
-      - {x: 0, y: 0}
-      _mass: 1
-    _dataList:
-    - _position: {x: 0, y: 0}
-      _velocity: {x: -1, y: 1}
-      _acceleration: {x: 0, y: 0}
-      _infoList:
-      - {x: 0, y: 0}
+      _mass: 0.5
+    - _infoList:
+      - {x: 1, y: 2}
       - {x: 0, y: 0}
       - {x: 0, y: 0}
       _mass: 1
-    - _position: {x: 1, y: 2}
-      _velocity: {x: 0, y: 0}
-      _acceleration: {x: 0, y: 0}
-      _infoList:
-      - {x: 0, y: 0}
+    - _infoList:
+      - {x: 1, y: -2}
       - {x: 0, y: 0}
       - {x: 0, y: 0}
       _mass: 1
-    - _position: {x: 1, y: -2}
-      _velocity: {x: 0, y: 0}
-      _acceleration: {x: 0, y: 0}
-      _infoList:
-      - {x: 0, y: 0}
-      - {x: 0, y: 0}
-      - {x: 0, y: 0}
-      _mass: 1
+    _dataList: []
   _splineVisual:
     _lineRendererPrefab: {fileID: 752996298424737886, guid: 01d57f1ba06ea5847b49c3618a4c41d8, type: 3}
     _dataVisualPrefab: {fileID: 1975420142893455163, guid: 77750fb3aeedf0845ac5270521e82ceb, type: 3}
