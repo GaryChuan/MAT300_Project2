@@ -11,7 +11,7 @@ public struct MassPoint
     public Vector2 point => _point;
 
     public float mass => _mass;
-    Vector2 value => _mass == 0 ? _point : _point * _mass;
+    public Vector2 value => _mass == 0 ? _point : _point * _mass;
 
     public MassPoint(Vector2 point, float mass)
     {

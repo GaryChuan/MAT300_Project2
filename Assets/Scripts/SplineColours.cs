@@ -8,7 +8,7 @@ using UnityEngine;
 public class SplineColours : ScriptableObject
 {
     [SerializeField] List<Color> _colours;
-
+    public int Count => _colours.Count;
     public Color this[int index]
     {
         get { return _colours[index]; }

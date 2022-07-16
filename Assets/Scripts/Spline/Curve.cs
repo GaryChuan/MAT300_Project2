@@ -19,13 +19,15 @@ public class Curve
     {
         float oneMinusT = 1 - t;
 
-        Vector2 p01 = oneMinusT * _massPoints[0].point + t * _massPoints[1].point;
-        Vector2 p12 = oneMinusT * _massPoints[1].point + t * _massPoints[2].point;
-        Vector2 p23 = oneMinusT * _massPoints[2].point + t * _massPoints[3].point;
+        MassPoint p01 = oneMinusT * _massPoints[0] + t * _massPoints[1];
+        MassPoint p12 = oneMinusT * _massPoints[1] + t * _massPoints[2];
+        MassPoint p23 = oneMinusT * _massPoints[2] + t * _massPoints[3];
 
-        Vector2 p012 = oneMinusT * p01 + t * p12;
-        Vector2 p123 = oneMinusT * p12 + t * p23;
+        MassPoint p012 = oneMinusT * p01 + t * p12;
+        MassPoint p123 = oneMinusT * p12 + t * p23;
 
-        return oneMinusT * p012 + t * p123;
+        MassPoint p0123 = oneMinusT * p012 + t * p123;
+
+        return p0123.point;
     }
 }

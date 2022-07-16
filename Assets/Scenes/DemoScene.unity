@@ -170,17 +170,42 @@ MonoBehaviour:
   _splineGenerator:
     _inputDataList:
     - _infoList:
-      - {x: 0, y: 0}
-      - {x: -1, y: 1}
-      - {x: 0, y: 0}
+      - {x: 7.5, y: 4.8}
+      - {x: 1.2, y: -2}
+      - {x: 0.6, y: -1.2}
       _mass: 0.5
     - _infoList:
-      - {x: 1, y: 2}
+      - {x: 2.2, y: 1.3}
       - {x: 0, y: 0}
       - {x: 0, y: 0}
       _mass: 1
     - _infoList:
-      - {x: 1, y: -2}
+      - {x: -9.9, y: 5.5}
+      - {x: 0, y: 0}
+      - {x: 0, y: 0}
+      _mass: 1
+    - _infoList:
+      - {x: -2.9, y: -8.7}
+      - {x: 0, y: 0}
+      - {x: 0, y: 0}
+      _mass: 1
+    - _infoList:
+      - {x: -5.5, y: 6.7}
+      - {x: 0, y: 0}
+      - {x: 0, y: 0}
+      _mass: 1
+    - _infoList:
+      - {x: 5.1, y: 6.7}
+      - {x: 0, y: 0}
+      - {x: 0, y: 0}
+      _mass: 1
+    - _infoList:
+      - {x: -10, y: 0}
+      - {x: 0, y: 0}
+      - {x: 0, y: 0}
+      _mass: 1
+    - _infoList:
+      - {x: 9.2, y: 4.1}
       - {x: 0, y: 0}
       - {x: 0, y: 0}
       _mass: 1
