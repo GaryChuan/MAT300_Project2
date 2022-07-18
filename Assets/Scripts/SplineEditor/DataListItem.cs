@@ -27,10 +27,11 @@ public class DataListItem : MonoBehaviour
     [SerializeField] CanvasGroup _accelerationPanel;
 
     [Header("Texts")]
-    [SerializeField] TMP_Text _hideShowVelocityText;
-    [SerializeField] TMP_Text _hideShowAccelerationText;
+    [SerializeField] Button _hideShowVelocityButton;
+    [SerializeField] Button _hideShowAccelerationButton;
+    TMP_Text _hideShowVelocityText;
+    TMP_Text _hideShowAccelerationText;
 
-    public Button _dropDownButton;
     public Toggle _toggleButton;
     public Button _deleteButton;
 
@@ -50,16 +51,14 @@ public class DataListItem : MonoBehaviour
         _inputFields.Add(_positionText);
         _inputFields.Add(_velocityText);
         _inputFields.Add(_accelerationText);
+
+        _hideShowVelocityText = _hideShowVelocityButton.GetComponentInChildren<TMP_Text>();
+        _hideShowAccelerationText = _hideShowAccelerationButton.GetComponentInChildren<TMP_Text>();
     }
 
     public void Initialize(SplineEditor editor)
     {
         _splineEditor = editor;
-    }
-
-    public void FlipDropdownButton()
-    {
-        _dropDownButton.transform.rotation *= Quaternion.Euler(0, 0, 180);
     }
 
     public void ShowVelocity()
@@ -70,6 +69,12 @@ public class DataListItem : MonoBehaviour
     public void ShowAcceleration()
     {
         _hideShowAccelerationText.text = "Hide";
+    }
+
+    public void SetActiveHideShowButton(bool active)
+    {
+        _hideShowVelocityButton.gameObject.SetActive(active);
+        _hideShowAccelerationButton.gameObject.SetActive(active);
     }
 
     public void HideShowVelocityArrow()

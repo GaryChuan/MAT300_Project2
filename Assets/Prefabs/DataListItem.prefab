@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8728311909683642394
 RectTransform:
   m_ObjectHideFlags: 0
@@ -36,10 +36,10 @@ RectTransform:
   m_Father: {fileID: 8237763372060867178}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 304, y: -17}
+  m_SizeDelta: {x: 50, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8430601012265840528
 CanvasRenderer:
@@ -123,8 +123,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DataUI, Assembly-CSharp
+      - m_Target: {fileID: 865732687090686970}
+        m_TargetAssemblyTypeName: DataListItem, Assembly-CSharp
         m_MethodName: HideShowVelocityArrow
         m_Mode: 1
         m_Arguments:
@@ -704,7 +704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1729639868506801899
 RectTransform:
   m_ObjectHideFlags: 0
@@ -721,10 +721,10 @@ RectTransform:
   m_Father: {fileID: 8237763371898311160}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 304, y: -17}
+  m_SizeDelta: {x: 50, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2742999148677182019
 CanvasRenderer:
@@ -808,8 +808,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DataUI, Assembly-CSharp
+      - m_Target: {fileID: 865732687090686970}
+        m_TargetAssemblyTypeName: DataListItem, Assembly-CSharp
         m_MethodName: HideShowAccelerationArrow
         m_Mode: 1
         m_Arguments:
@@ -7462,9 +7462,8 @@ MonoBehaviour:
   massInputField: {fileID: 8237763372954201766}
   _velocityPanel: {fileID: 4184036785134306532}
   _accelerationPanel: {fileID: 8361877371509900278}
-  _hideShowVelocityText: {fileID: 7740573488986570628}
-  _hideShowAccelerationText: {fileID: 7387050053240730799}
-  _dropDownButton: {fileID: 0}
+  _hideShowVelocityButton: {fileID: 1218024555404393602}
+  _hideShowAccelerationButton: {fileID: 2780618564545743713}
   _toggleButton: {fileID: 553311095272790533}
   _deleteButton: {fileID: 906729288916467062}
 --- !u!1 &8237763373379672893

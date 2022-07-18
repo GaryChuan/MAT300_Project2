@@ -27,7 +27,7 @@ public class SplineEditor : MonoBehaviour
 
     void Awake()
     {
-        for (int i = 0; i < 10; ++i)
+        for (int i = 0; i < Spline.MaxPoints; ++i)
         {
             int index = i; // Caching index for lambdas
 
@@ -41,6 +41,7 @@ public class SplineEditor : MonoBehaviour
             // to be interactable
             if(i == 0)
             {
+                dataListItem.SetActiveHideShowButton(true);
                 dataListItem.SetVelocityPanelInteractable(true);
                 dataListItem.SetAccelerationPanelInteractable(true);
             }
@@ -92,7 +93,7 @@ public class SplineEditor : MonoBehaviour
 
         if (File.Exists(filePath))
         {
-            // LoadFromFile(filePath);
+            LoadFromFile(filePath);
         }
 
         _spline.Initialize();
@@ -147,7 +148,7 @@ public class SplineEditor : MonoBehaviour
 
             if (_selectedListItems.Count == 2)
             {
-                for (int i = 0; i < 10; ++i)
+                for (int i = 0; i < Spline.MaxPoints; ++i)
                 {
                     if (i == index || _selectedListItems.Contains(i))
                     {
@@ -162,7 +163,7 @@ public class SplineEditor : MonoBehaviour
         {
             _selectedListItems.Remove(index);
 
-            for (int i = 0; i < 10; ++i)
+            for (int i = 0; i < Spline.MaxPoints; ++i)
             {
                 _dataListItems[i]._toggleButton.interactable = true;
             }
@@ -171,61 +172,64 @@ public class SplineEditor : MonoBehaviour
         _swapDataButton.interactable = _selectedListItems.Count == 2;
     }
 
-    //    void LoadFromFile(string filePath)
-    //    {
-    //        StreamReader inputStream = File.OpenText(filePath);
+    void LoadFromFile(string filePath)
+    {
+        StreamReader inputStream = File.OpenText(filePath);
 
-    //        var vertexCountInfo = inputStream.ReadLine();
-    //        int vertexCount = Convert.ToInt32(vertexCountInfo);
+        var vertexCountInfo = inputStream.ReadLine();
+        int vertexCount = Convert.ToInt32(vertexCountInfo);
 
-    //        for (int i = 0; i < vertexCount; ++i)
-    //        {
-    //            var info = inputStream.ReadLine()?.Trim(' ').Split(' ');
+        // Reading first info data
+        {
+            var info = inputStream.ReadLine()?.Trim(' ').Split(' ');
 
-    //#nullable enable
-    //            InputData? inputData = null;
-    //#nullable disable
+            InputData inputData = new InputData();
+            Vector2 position = new Vector2
+                (
+                    (float)Convert.ToDouble(info[0]),
+                    (float)Convert.ToDouble(info[1])
+                );
+            Vector2 velocity = new Vector2
+                (
+                    (float)Convert.ToDouble(info[2]),
+                    (float)Convert.ToDouble(info[3])
+                );
+            Vector2 acceleration = new Vector2
+                (
+                    (float)Convert.ToDouble(info[4]),
+                    (float)Convert.ToDouble(info[5])
+                );
 
-    //            // Position
-    //            if (info.Length >= 2)
-    //            {
-    //                inputData = new InputData();
+            inputData.SetPosition(position);
+            inputData.SetVelocity(velocity);
+            inputData.SetAcceleration(acceleration);
+            inputData.SetMass((float)Convert.ToDouble(info[6]));
+            
+            _spline.AddInputData(inputData);
+        }
 
-    //                inputData._dataList.Add(new Vector2(
-    //                    (float)Convert.ToDouble(info[0]),
-    //                    (float)Convert.ToDouble(info[1])
-    //                ));
-    //            }
+        for (int i = 1; i < vertexCount; ++i)
+        {
+            var info = inputStream.ReadLine()?.Trim(' ').Split(' ');
 
-    //            // Velocity
-    //            if (info.Length >= 4)
-    //            {
-    //                inputData._dataList.Add(new Vector2(
-    //                    (float)Convert.ToDouble(info[2]),
-    //                    (float)Convert.ToDouble(info[3])
-    //                ));
-    //            }
+            InputData inputData = new InputData();
 
-    //            // Acceleration
-    //            if (info.Length >= 6)
-    //            {
-    //                inputData._dataList.Add(new Vector2(
-    //                    (float)Convert.ToDouble(info[4]),
-    //                    (float)Convert.ToDouble(info[5])
-    //                ));
-    //            }
+            Vector2 position = new Vector2
+                (
+                    (float)Convert.ToDouble(info[0]),
+                    (float)Convert.ToDouble(info[1])
+                );
 
-    //            if (inputData != null && Convert.ToBoolean(info.Length % 2))
-    //            {
-    //                inputData.mass = (float)Convert.ToDouble(info[info.Length - 1]);
-    //            }
+            inputData.SetPosition(position);
 
-    //            if (inputData != null)
-    //            {
-    //                _spline.AddInputData(inputData);
-    //            }
-    //        }
-    //    }
+            if(info.Length == 3)
+            {
+                inputData.SetMass((float)Convert.ToDouble(info[2]));
+            }
+
+            _spline.AddInputData(inputData);
+        }
+    }
 
     void Initialize()
     {
@@ -278,7 +282,7 @@ public class SplineEditor : MonoBehaviour
                 });
         }
 
-        for (int i = _spline.NumOfPoints; i < 10; ++i)
+        for (int i = _spline.NumOfPoints; i < Spline.MaxPoints; ++i)
         {
             _dataListItems[i].transform.gameObject.SetActive(false);
         }
@@ -336,14 +340,14 @@ public class SplineEditor : MonoBehaviour
     public void AddData()
     {
         _spline.AddData();
-        _addDataButton.interactable = _spline.InputDataList.Count != 10;
+        _addDataButton.interactable = _spline.InputDataList.Count != Spline.MaxPoints;
         Initialize();
     }
 
     public void RemoveData(int index)
     {
         _spline.RemoveData(index);
-        _addDataButton.interactable = _spline.InputDataList.Count != 10;
+        _addDataButton.interactable = _spline.InputDataList.Count != Spline.MaxPoints;
 
         if(_selectedListItems.Contains(index))
         {

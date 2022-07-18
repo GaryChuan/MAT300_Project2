@@ -21,7 +21,7 @@ public class SplineVisual
     public void Initialize(Spline spline)
     {
         // Instantiate line renderers and data visuals
-        for (int i = 0; i < 10; ++i)
+        for (int i = 0; i < Spline.MaxPoints; ++i)
         {
             LineRenderer lineRenderer =
                 Object.Instantiate(_lineRendererPrefab, spline.transform);
@@ -50,22 +50,16 @@ public class SplineVisual
     {
         _splineColours = splineColours;
 
-        for(int i = 0; i < 10; ++i)
+        for(int i = 0; i < Spline.MaxPoints; ++i)
         {
             _dataVisuals[i].SetPointColour(splineColours[i]);
 
-            if(i < 9)
+            if(i < Spline.MaxPoints - 1)
             {
                 _lineRenderers[i].startColor = splineColours[i];
-                _lineRenderers[i].endColor = splineColours[(i + 1) % 10];
+                _lineRenderers[i].endColor = splineColours[(i + 1) % Spline.MaxPoints];
             }
         }
-    }
-
-    bool WithinBounds(Vector2 v)
-    {
-        const float bounds = 15f;
-        return v.x <= bounds && v.x >= -bounds && v.y <= bounds && v.y >= -bounds;
     }
 
     public void GenerateSplineVisuals(Spline spline)
@@ -203,7 +197,7 @@ public class SplineVisual
             dataVisual.UpdateAccelerationArrow(data.acceleration.point);
         }
 
-        for(int i = spline.DataList.Count; i < 10; ++i)
+        for(int i = spline.DataList.Count; i < Spline.MaxPoints; ++i)
         {
             _dataVisuals[i].gameObject.SetActive(false);
         }

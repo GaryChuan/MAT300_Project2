@@ -68,7 +68,7 @@ public class SplineGenerator
 
     public void AddData()
     {
-        if(_inputDataList.Count < 10)
+        if(_inputDataList.Count < Spline.MaxPoints)
         {
            _inputDataList.Add(new InputData());
         }
@@ -81,14 +81,18 @@ public class SplineGenerator
 
     public void SwapPoints(int index1, int index2)
     {
-        InputData temp = _inputDataList[index1];
-        Vector2 velocity = temp.Velocity;
-        Vector2 acceleration = temp.Acceleration;
+        Vector2 pos1 = _inputDataList[index1].Position;
+        float mass1 = _inputDataList[index1].Mass;
 
-        _inputDataList[index1] = _inputDataList[index2];
-        _inputDataList[index2] = temp;
+        _inputDataList[index1].SetPosition(_inputDataList[index2].Position);
+        _inputDataList[index2].SetPosition(pos1);
 
-        _inputDataList[index1].SetVelocity(velocity);
-        _inputDataList[index1].SetAcceleration(acceleration);
+        _inputDataList[index1].SetMass(_inputDataList[index2].Mass);
+        _inputDataList[index2].SetMass(mass1);
+    }
+
+    public void AddInputData(InputData _data)
+    {
+        _inputDataList.Add(_data);
     }
 }

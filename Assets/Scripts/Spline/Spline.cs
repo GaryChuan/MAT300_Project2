@@ -13,22 +13,15 @@ public class Spline : MonoBehaviour
     public List<MassPointData> DataList => _splineGenerator.DataList;
 
     public int NumOfPoints => DataList.Count;
+    public const int MaxPoints = 20;
 
     void Awake()
     {
         _splineVisual.Initialize(this);
     }
-
-    // Start is called before the first frame update
-    void Start()
+    public void AddInputData(InputData _data)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        _splineGenerator.AddInputData(_data);
     }
 
     public void Initialize()
